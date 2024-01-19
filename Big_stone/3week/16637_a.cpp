@@ -14,7 +14,7 @@ int oper(char a, int b, int c) {
 	if (a == '-') return b - c;
 	if (a == '*') return b * c;
 }
-void go(int here, int num_sum) {
+void go(int here, int num_sum) { // here : idx(ÀÎµ¦½º) , sum : ´©ÀûÇÕ
 	// ±âÀú »ç·Ê
 	if (here == num_v.size() - 1) {
 		res = max(res, num_sum);
