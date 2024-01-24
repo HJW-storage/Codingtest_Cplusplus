@@ -1,5 +1,4 @@
 //https://www.acmicpc.net/problem/3197
-// ½Ã°£ÃÊ°ú ..... 
 
 #include <iostream>
 #include <algorithm>
@@ -19,12 +18,12 @@ vector<pair<int, int>> bbakjo;
 queue<pair<int, int>> bbakjo_q, bbakjo_tmpq;
 queue<pair<int, int>> water_q, water_tmpq;
 
-// Å¥ ºñ¿ì±â
+// Å¥ ï¿½ï¿½ï¿½ï¿½
 void Qclear(queue<pair<int, int>> &q) {
 	queue<pair<int, int>> emptyq;
 	swap(q, emptyq);
 }
-// ºùÆÇ ³ìÀÌ±â (grid[][] °ªÀ» º¯°æ½ÃÅ²´Ù.)
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ (grid[][] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.)
 void melting() {
 	int cur_row = 0, cur_col = 0, next_row = 0, next_col = 0;
 	while (water_q.size()) {
@@ -37,20 +36,20 @@ void melting() {
 			
 			if (next_row >= 0 && next_row < n && next_col >= 0 && next_col < m) {
 				if (visited_water[next_row][next_col] == 0 && grid[next_row][next_col] == 'X') {
-					visited_water[next_row][next_col] = 1; // ¹æ¹® Ã³¸®
-					grid[next_row][next_col] = '.'; // ºùÆÇ ³ìÀÌ±â. 
+					visited_water[next_row][next_col] = 1; // ï¿½æ¹® Ã³ï¿½ï¿½
+					grid[next_row][next_col] = '.'; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½. 
 					water_tmpq.push({ next_row, next_col });
 				}
 			}
 		}
 	}
 
-	// tmpq º¹»çÇØÁÖ±â
+	// tmpq ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	water_q = water_tmpq;
-	Qclear(water_tmpq);	// Å¥ ºñ¿ì±â
+	Qclear(water_tmpq);	// Å¥ ï¿½ï¿½ï¿½ï¿½
 	return;
 }
-// ¹éÁ¶°¡ ¸¸³ª´ÂÁö °Ë»ç (grid[][] °ªÀ» º¯°æ½ÃÅ°Áö ¾Ê°í °Ë»ç¸¸ÇÑ´Ù.)
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ (grid[][] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ë»ç¸¸ï¿½Ñ´ï¿½.)
 bool bbakjo_meet(int end_row, int end_col) {
 	int cur_row = 0, cur_col = 0, next_row = 0, next_col = 0;
 	while (bbakjo_q.size()) {
@@ -61,7 +60,7 @@ bool bbakjo_meet(int end_row, int end_col) {
 			next_row = cur_row + dr[i];
 			next_col = cur_col + dc[i];
 			
-			// °Ë»ç (¹éÁ¶ ¸¸³ª¸é Å»Ãâ)
+			// ï¿½Ë»ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å»ï¿½ï¿½)
 			if (next_row == end_row && next_col == end_col) {
 				return true;
 			}
@@ -69,21 +68,21 @@ bool bbakjo_meet(int end_row, int end_col) {
 			if (next_row >= 0 && next_row < n && next_col >= 0 && next_col < m) {
 				if (visited_bbakjo[next_row][next_col] == 0) {
 					if (grid[next_row][next_col] == '.') {
-						bbakjo_q.push({ next_row, next_col }); // ¹°ÀÎ °÷Àº Áö³ª°£´Ù.
-						visited_bbakjo[next_row][next_col] = 1; // ¹æ¹®Ã³¸®
+						bbakjo_q.push({ next_row, next_col }); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+						visited_bbakjo[next_row][next_col] = 1; // ï¿½æ¹®Ã³ï¿½ï¿½
 					}
 					else if (grid[next_row][next_col] == 'X') {
-						bbakjo_tmpq.push({ next_row, next_col }); // ´ÙÀ½ ¹éÁ¶ Å½»ö À§Ä¡ Ãß°¡
-						visited_bbakjo[next_row][next_col] = 1; // ¹æ¹®Ã³¸®
+						bbakjo_tmpq.push({ next_row, next_col }); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ß°ï¿½
+						visited_bbakjo[next_row][next_col] = 1; // ï¿½æ¹®Ã³ï¿½ï¿½
 					}
 
 				}
 			}
 		}
 	}
-	// tmpq º¹»çÇØÁÖ±â
+	// tmpq ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	bbakjo_q = bbakjo_tmpq;
-	Qclear(bbakjo_tmpq);	// Å¥ ºñ¿ì±â
+	Qclear(bbakjo_tmpq);	// Å¥ ï¿½ï¿½ï¿½ï¿½
 	return false;
 }
 int main() {
@@ -91,7 +90,7 @@ int main() {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	// ºóÄ­ ¾øÀÌ ÀÔ·ÂµÇ´Â ¹®ÀÚ¿­
+	// ï¿½ï¿½Ä­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ÂµÇ´ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	cin >> n >> m;
 	for (int i = 0; i < n; i++) {
 		string temp;
@@ -99,18 +98,18 @@ int main() {
 		for (int j = 0; j < m; j++) {
 			grid[i][j] = temp[j];
 			if (grid[i][j] == 'L') {
-				bbakjo.push_back({ i, j });	// º¤Á¶ ÀÎµ¦½º ÀúÀå.
+				bbakjo.push_back({ i, j });	// ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			}
-			// ¹éÁ¶°¡ ÀÖ´Â À§Ä¡µµ ¹°ÀÌ±â¿¡ ¹éÁ¶À§Ä¡µµ water_Q¿¡ ³Ö¾î¾ßÇÏ°¡ÀÌ
-			// else if·Î ¾²¸é ¾ÈµÈ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ water_Qï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+			// else ifï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
 			if (grid[i][j] == '.' || grid[i][j] == 'L') {
-				water_q.push({ i, j }); // ¹°ÀÎ °÷ Å½»öÇÒ À§Ä¡ ÀúÀå.
-				visited_water[i][j] = 1;	// ÃÊ±â ¹æ¹®Ã³¸®
+				water_q.push({ i, j }); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½.
+				visited_water[i][j] = 1;	// ï¿½Ê±ï¿½ ï¿½æ¹®Ã³ï¿½ï¿½
 			}
 		}
 	}
 	bbakjo_q.push({ bbakjo[0].first, bbakjo[0].second});
-	visited_bbakjo[bbakjo[0].first][bbakjo[0].second] = 1; // ÃÊ±â ¹æ¹®Ã³¸®
+	visited_bbakjo[bbakjo[0].first][bbakjo[0].second] = 1; // ï¿½Ê±ï¿½ ï¿½æ¹®Ã³ï¿½ï¿½
 
 	int result = 0;
 	if (bbakjo.size() >= 2) {
