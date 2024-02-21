@@ -8,25 +8,46 @@ typedef long long ll;
 int n = 0;
 ll dp[34][34] = { 0, };
 
-ll solve_dp(int w, int h) {
-	// Á¾·á Á¶°Ç
+ll solve_dp_TopDown(int w, int h) {
+	// ì¢…ë£Œ ì¡°ê±´
 	if (w == 0) return 1;
 	if (h < 0) return 0;
 
-	// ¸Þ¸ð¸®Á¦ÀÌ¼Ç, ·ÎÁ÷±¸Çö
+	// ë©”ëª¨ë¦¬ì œì´ì…˜, ë¡œì§êµ¬í˜„
 	if (dp[w][h]) return dp[w][h];
-	else dp[w][h] = solve_dp(w - 1, h + 1) + solve_dp(w, h - 1);
+	else dp[w][h] = solve_dp_TopDown(w - 1, h + 1) + solve_dp_TopDown(w, h - 1);
 
 	return dp[w][h];
+}
+
+ll bottom_up() {
+	// ê¸°ì €ì‚¬ë¡€
+	for (int i = 0; i <= 30; i++) {
+		dp[0][i] = 1;
+	}
+
+	// ë©”ëª¨ë¦¬ì œì´ì…˜, ë¡œì§êµ¬í˜„
+	for (int i = 1; i <= 30; i++) {
+		for (int j = 0; j <= 30; j++) {
+			if (j == 0) dp[i][j] = dp[i - 1][j + 1];
+			else dp[i][j] = dp[i - 1][j + 1] + dp[i][j - 1];
+		}
+	}
+	return dp[n][0];
 }
 int main() {
 	ios::sync_with_stdio(false); cin.tie(nullptr);
 	
-	// ÃÊ±âÈ­ 
+	// ì´ˆê¸°í™” 
 	while (1) {
 		cin >> n;
 		if (n == 0) break;
-		cout << solve_dp(n, 0) << "\n";
+		// top-down ë°©ì‹
+		 cout << solve_dp_TopDown(n, 0) << "\n";
+		
+		// bottom_up ë°©ì‹
+		/*bottom_up();
+		cout << dp[n][0] << "\n";*/
 	}
 	return 0;
 }
