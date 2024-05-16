@@ -1,4 +1,5 @@
 // https://www.acmicpc.net/problem/14889
+// 완탐 가능 -> 최대 O(4,000,000)
 
 #include <iostream>
 #include <algorithm>
@@ -11,21 +12,22 @@ int n = 0, grid[24][24] = { 0, }, cmp_res = 0;
 priority_queue<int, vector<int>, greater<int>> pq;
 vector<int> start_team(24, 0), link_team(24, 0), cmp_vec(24, 0);
 
+// 양쪽 팀 구성. 
 void build_team(vector<int>& tv, int v_size) {
 	for (int i = 0; i < v_size; i++) {
 		start_team[i] = tv[i];
-		cmp_vec[tv[i]] = 1;
+		cmp_vec[tv[i]] = 1; // start 팀인 사람은 1로 방문처리.
 	}
 
 	int idx = 0;
-	for (int i = 0; i < n; i++) {
-		if (cmp_vec[i] ^ 1) link_team[idx++] = i;
+	for (int i = 0; i < n; i++) { // O(N) : 최대 O(20).
+		if (cmp_vec[i] ^ 1) link_team[idx++] = i;	// start 팀이 아닌 사람만 선택.
 	}
 
 	return;
 }
 
-int cal_team_score(int _size) {
+int cal_team_score(int _size) { // O(_size^2) : 최대 O(100). 
 	int start_team_sco = 0;
 	for (int i = 0; i < _size; i++) {
 		for (int j = 0; j < _size; j++) {
@@ -41,7 +43,7 @@ int cal_team_score(int _size) {
 	}
 	return abs(start_team_sco - link_team_sco);
 }
-void combi_1(vector<int> &v, int start) {
+void combi(vector<int> &v, int start) {
 	if (v.size() == int(n / 2)) {
 		// 초기화
 		for (int i = 0; i < n; i++) {
@@ -73,7 +75,7 @@ void combi_1(vector<int> &v, int start) {
 
 	for (int i = start + 1; i < n; i++) {
 		v.push_back(i);
-		combi_1(v, i);
+		combi(v, i);
 		v.pop_back();
 	}
 	return;
@@ -91,7 +93,7 @@ int main() {
 	}
 
 	vector<int> tmp_v;
-	combi_1(tmp_v, -1);
+	combi(tmp_v, -1); // 최대 20 C 10 -> 약 40,000 
 
 	cout << pq.top() << "\n";
 	return 0;
